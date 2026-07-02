@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 7 17 31;
+  --foreground: 233 238 247;
+  --card: 18 28 45;
+  --card-foreground: 233 238 247;
+  --popover: 18 28 45;
+  --popover-foreground: 233 238 247;
+  --primary: 212 175 55;
+  --primary-foreground: 19 19 19;
+  --secondary: 24 34 52;
+  --secondary-foreground: 233 238 247;
+  --muted: 179 191 209;
+  --muted-foreground: 179 191 209;
+  --accent: 212 175 55;
+  --accent-foreground: 19 19 19;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 255 255 255;
+  --input: 255 255 255;
+  --ring: 212 175 55;
+}
+
+.dark {
+  --background: 7 17 31;
+  --foreground: 233 238 247;
+  --card: 18 28 45;
+  --card-foreground: 233 238 247;
+  --popover: 18 28 45;
+  --popover-foreground: 233 238 247;
+  --primary: 212 175 55;
+  --primary-foreground: 19 19 19;
+  --secondary: 24 34 52;
+  --secondary-foreground: 233 238 247;
+  --muted: 179 191 209;
+  --muted-foreground: 179 191 209;
+  --accent: 212 175 55;
+  --accent-foreground: 19 19 19;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --border: 255 255 255;
+  --input: 255 255 255;
+  --ring: 212 175 55;
+}
+
+@layer base {
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    margin: 0;
+    min-width: 320px;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    background:
+      radial-gradient(circle at top right, rgba(212, 175, 55, 0.18), transparent 25%),
+      radial-gradient(circle at left center, rgba(33, 57, 98, 0.28), transparent 28%),
+      linear-gradient(180deg, #020406 0%, #07111f 40%, #09172a 100%);
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .sticky-nav {
+    @apply sticky top-0 z-50 border-b border-white/10;
+    backdrop-filter: blur(18px);
+    background: rgba(2, 4, 6, 0.66);
+  }
+
+  .glass-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.07));
+    backdrop-filter: blur(22px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #d4af37, #f6df9a);
+    color: #131313;
+    box-shadow: 0 14px 35px rgba(212, 175, 55, 0.2);
+  }
+
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px rgba(212, 175, 55, 0.22);
+  }
+
+  .countdown-box {
+    padding: 18px 10px;
+    text-align: center;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .prose {
+    @apply text-muted-foreground;
+  }
+
+  .prose :where(h1,h2,h3,h4,strong,th) {
+    color: white;
+  }
+
+  .prose a {
+    color: #f1d27a;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.6s ease-out both;
+}
