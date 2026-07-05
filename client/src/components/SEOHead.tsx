@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { DEFAULT_OG_IMAGE, SITE_URL } from '@/lib/siteConfig';
 
 interface SEOHeadProps {
   title: string;
@@ -16,8 +17,8 @@ export function SEOHead({
   title,
   description,
   keywords,
-  image = 'https://worldcupfinalstay.com/og-image.jpg',
-  url = typeof window !== 'undefined' ? window.location.href : '',
+  image = DEFAULT_OG_IMAGE,
+  url = typeof window !== 'undefined' ? new URL(window.location.pathname + window.location.search, SITE_URL).toString() : SITE_URL,
   type = 'website',
   author,
   publishedDate,
@@ -67,6 +68,7 @@ export function SEOHead({
     updateMeta('twitter:title', title);
     updateMeta('twitter:description', description);
     updateMeta('twitter:image', image);
+    updateMeta('twitter:url', url);
 
     // Article specific tags
     if (type === 'article') {

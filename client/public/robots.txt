@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://worldcupfinalstay.com/sitemap.xml
+Sitemap: https://worldcupfinalstay2026.online/sitemap.xml

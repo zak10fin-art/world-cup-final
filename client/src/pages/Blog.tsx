@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import SEOHead from '@/components/SEOHead';
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -22,7 +23,13 @@ export default function Blog() {
     : allPosts?.posts || [];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950">
+    <>
+      <SEOHead
+        title="World Cup Travel Blog - Guides for MetLife Stadium and World Cup 2026"
+        description="Read hotel guides, stadium tips, transport advice, and New York and New Jersey recommendations for the FIFA World Cup 2026 Final."
+        keywords="World Cup 2026 blog, MetLife Stadium travel guide, New Jersey hotels, NYC attractions"
+      />
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950">
       <Navigation />
 
       <main className="flex-1">
@@ -147,6 +154,7 @@ export default function Blog() {
       </main>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }

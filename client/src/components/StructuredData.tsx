@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { SITE_EMAIL, SITE_URL } from '@/lib/siteConfig';
 
 interface StructuredDataProps {
   data: Record<string, any>;
@@ -23,8 +24,8 @@ export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'World Cup Final Stay',
-  url: 'https://worldcupfinalstay.com',
-  logo: 'https://worldcupfinalstay.com/logo.png',
+  url: SITE_URL,
+  logo: `${SITE_URL}/images/world-cup-match.webp`,
   description: 'Premium travel guide and hotel booking assistance for FIFA World Cup 2026 Final at MetLife Stadium',
   sameAs: [
     'https://www.facebook.com/worldcupfinalstay',
@@ -34,7 +35,7 @@ export const organizationSchema = {
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'Customer Support',
-    email: 'hello@worldcupfinalstay.com',
+    email: SITE_EMAIL,
   },
 };
 
@@ -102,7 +103,7 @@ export const articleSchema = (article: {
     name: 'World Cup Final Stay',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://worldcupfinalstay.com/logo.png',
+      url: `${SITE_URL}/images/world-cup-match.webp`,
     },
   },
   mainEntityOfPage: {

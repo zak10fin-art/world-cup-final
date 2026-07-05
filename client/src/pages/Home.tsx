@@ -326,6 +326,50 @@ export default function Home() {
           </div>
         </section>
 
+        {/* eSIMania eSIM Section */}
+        <section className="py-20 border-t border-white/10">
+          <div className="container">
+            <div className="glass-card overflow-hidden rounded-2xl border border-white/10 fade-up">
+              <div className="grid gap-8 p-6 md:p-10 lg:grid-cols-[120px_minmax(0,1fr)_auto] lg:items-center">
+                <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-3xl border border-accent/30 bg-gradient-to-br from-accent/20 to-white/5 text-5xl shadow-glass">
+                  📱
+                </div>
+
+                <div>
+                  <h2 className="text-4xl font-bold mb-3 text-white">Stay Connected During FIFA World Cup 2026</h2>
+                  <p className="text-lg text-muted mb-6">Get instant mobile data in the USA with eSIMania eSIM.</p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    {[
+                      'Instant activation',
+                      'No physical SIM card required',
+                      'Affordable data plans',
+                      'Perfect for international travelers',
+                    ].map((benefit) => (
+                      <div key={benefit} className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-muted">
+                        <span className="text-accent">✓</span>
+                        <span>{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex justify-center lg:justify-end">
+                  <a
+                    href="https://www.awin1.com/cread.php?awinmid=115715&awinaffid=2712174&ued=https%3A%2F%2Fesimania.com%2F%3Futm_source%3Dchatgpt.com&platform=ma"
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    className="w-full sm:w-auto"
+                  >
+                    <Button className="btn-gold w-full px-8 py-6 text-base md:text-lg whitespace-normal">
+                      Get Your eSIM Now
+                    </Button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Expedia Search Widget + Parking */}
         <section className="py-20 border-t border-white/10">
           <div className="container">

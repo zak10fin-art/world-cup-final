@@ -68,7 +68,7 @@ export default function AffiliateDisclosure() {
 
               <h2 className="text-3xl font-bold text-white mt-8 mb-4">Questions?</h2>
               <p>
-                If you have any questions about our affiliate relationships or this disclosure, please contact us at hello@worldcupfinalstay.com.
+                If you have any questions about our affiliate relationships or this disclosure, please contact us at hello@worldcupfinalstay2026.online.
               </p>
             </div>
           </div>

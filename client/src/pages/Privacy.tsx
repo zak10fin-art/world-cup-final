@@ -40,7 +40,7 @@ export default function Privacy() {
 
               <h2 className="text-3xl font-bold text-white mt-8 mb-4">6. Your Rights</h2>
               <p>
-                You have the right to access, correct, or delete your personal information. To exercise these rights, please contact us at hello@worldcupfinalstay.com.
+                You have the right to access, correct, or delete your personal information. To exercise these rights, please contact us at hello@worldcupfinalstay2026.online.
               </p>
 
               <h2 className="text-3xl font-bold text-white mt-8 mb-4">7. Changes to This Policy</h2>
@@ -50,7 +50,7 @@ export default function Privacy() {
 
               <h2 className="text-3xl font-bold text-white mt-8 mb-4">8. Contact Us</h2>
               <p>
-                If you have any questions about this privacy policy, please contact us at hello@worldcupfinalstay.com.
+                If you have any questions about this privacy policy, please contact us at hello@worldcupfinalstay2026.online.
               </p>
             </div>
           </div>

@@ -3,6 +3,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import SEOHead from '@/components/SEOHead';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -16,7 +17,13 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950">
+    <>
+      <SEOHead
+        title="Contact World Cup Final Stay"
+        description="Contact World Cup Final Stay for hotel guidance, match-week travel questions, and FIFA World Cup 2026 Final stay planning help."
+        keywords="contact World Cup Final Stay, World Cup 2026 help, MetLife Stadium travel support"
+      />
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950">
       <Navigation />
 
       <main className="flex-1">
@@ -30,7 +37,7 @@ export default function Contact() {
                 <div className="space-y-6">
                   <div className="glass-card p-6 rounded-lg">
                     <h3 className="font-semibold text-white mb-2">Email</h3>
-                    <p className="text-muted">hello@worldcupfinalstay.com</p>
+                    <p className="text-muted">hello@worldcupfinalstay2026.online</p>
                   </div>
                   <div className="glass-card p-6 rounded-lg">
                     <h3 className="font-semibold text-white mb-2">Focus Area</h3>
@@ -83,6 +90,7 @@ export default function Contact() {
       </main>
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }
