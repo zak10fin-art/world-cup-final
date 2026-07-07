@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
+import AdsterraNativeBanner from '@/components/AdsterraNativeBanner';
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -71,6 +72,15 @@ export default function Blog() {
                 </Button>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section className="py-8">
+          <div className="container">
+            <AdsterraNativeBanner
+              title="Sponsored travel recommendations on blog listing"
+              minHeight={320}
+            />
           </div>
         </section>
 

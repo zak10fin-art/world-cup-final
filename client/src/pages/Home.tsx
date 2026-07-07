@@ -7,6 +7,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import StructuredData, { organizationSchema, eventSchema } from '@/components/StructuredData';
+import AdsterraNativeBanner from '@/components/AdsterraNativeBanner';
 import { homeImages } from '@/lib/siteImages';
 
 export default function Home() {
@@ -191,6 +192,15 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="py-8">
+          <div className="container">
+            <AdsterraNativeBanner
+              title="Sponsored travel recommendations below hero"
+              minHeight={340}
+            />
+          </div>
+        </section>
+
         {/* Urgency Alert */}
         <section className="py-8 bg-accent/10 border-y border-accent/20">
           <div className="container">
@@ -329,13 +339,13 @@ export default function Home() {
         {/* eSIMania eSIM Section */}
         <section className="py-20 border-t border-white/10">
           <div className="container">
-            <div className="glass-card overflow-hidden rounded-2xl border border-white/10 fade-up">
-              <div className="grid gap-8 p-6 md:p-10 lg:grid-cols-[120px_minmax(0,1fr)_auto] lg:items-center">
-                <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-3xl border border-accent/30 bg-gradient-to-br from-accent/20 to-white/5 text-5xl shadow-glass">
-                  📱
-                </div>
-
-                <div>
+            <div className="glass-card overflow-hidden rounded-3xl border border-white/10 fade-up">
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(300px,420px)] lg:items-center">
+                <div className="p-6 md:p-10">
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent">
+                    <span>📱</span>
+                    <span>Travel eSIM</span>
+                  </div>
                   <h2 className="text-4xl font-bold mb-3 text-white">Stay Connected During FIFA World Cup 2026</h2>
                   <p className="text-lg text-muted mb-6">Get instant mobile data in the USA with eSIMania eSIM.</p>
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -351,66 +361,116 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
+
+                  <div className="mt-8 flex justify-start">
+                    <a
+                      href="https://www.awin1.com/cread.php?awinmid=115715&awinaffid=2712174&ued=https%3A%2F%2Fesimania.com%2F%3Futm_source%3Dchatgpt.com&platform=ma"
+                      target="_blank"
+                      rel="noopener noreferrer sponsored"
+                      className="w-full sm:w-auto"
+                    >
+                      <Button className="btn-gold w-full px-8 py-6 text-base md:text-lg whitespace-normal">
+                        Get Your eSIM Now
+                      </Button>
+                    </a>
+                  </div>
                 </div>
 
-                <div className="flex justify-center lg:justify-end">
-                  <a
-                    href="https://www.awin1.com/cread.php?awinmid=115715&awinaffid=2712174&ued=https%3A%2F%2Fesimania.com%2F%3Futm_source%3Dchatgpt.com&platform=ma"
-                    target="_blank"
-                    rel="noopener noreferrer sponsored"
-                    className="w-full sm:w-auto"
-                  >
-                    <Button className="btn-gold w-full px-8 py-6 text-base md:text-lg whitespace-normal">
-                      Get Your eSIM Now
-                    </Button>
-                  </a>
+                <div className="relative h-full min-h-[320px] overflow-hidden border-t border-white/10 bg-slate-900 lg:border-l lg:border-t-0">
+                  <img
+                    src={homeImages.esimPromo}
+                    alt="eSIMania mobile eSIM app screen showing country coverage for international travelers visiting the USA"
+                    className="h-full w-full object-cover object-top"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent p-6">
+                    <p className="text-sm text-white/90">
+                      Fast setup, easy destination selection, and a travel-friendly mobile experience from eSIMania.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
+        <section className="pb-8">
+          <div className="container">
+            <AdsterraNativeBanner
+              title="Sponsored travel recommendations between hotels and parking"
+              minHeight={320}
+            />
+          </div>
+        </section>
+
         {/* Expedia Search Widget + Parking */}
         <section className="py-20 border-t border-white/10">
           <div className="container">
-            <div className="glass-card relative overflow-hidden rounded-2xl p-6 md:p-10 fade-up">
-              <img
-                src={homeImages.jerseyCitySkyline}
-                alt="Jersey City skyline near the New York metro area for World Cup travel planning"
-                className="absolute inset-0 h-full w-full object-cover opacity-10"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-950/75 to-slate-900/85"></div>
-              <div className="relative text-center max-w-2xl mx-auto mb-8">
-                <h2 className="text-4xl font-bold mb-4 text-white">Search More Travel Options</h2>
-                <p className="text-muted leading-relaxed">
-                  Explore additional Expedia stay and flight options for the FIFA World Cup 2026 Final weekend without changing any of the featured hotel recommendations above.
-                </p>
-              </div>
+            <div className="glass-card overflow-hidden rounded-3xl border border-white/10 fade-up">
+              <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_380px]">
+                <div className="relative overflow-hidden p-6 md:p-10">
+                  <img
+                    src={homeImages.parkingPromo}
+                    alt="Prked promotional image for parking and storage reservations"
+                    className="absolute inset-0 h-full w-full object-cover opacity-20"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-950/85 to-slate-900/80"></div>
+                  <div className="relative max-w-2xl">
+                    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent">
+                      <span>🚗</span>
+                      <span>Parking Partner</span>
+                    </div>
+                    <h2 className="text-4xl font-bold mb-4 text-white">Reserve Parking for Match Day</h2>
+                    <p className="text-muted leading-relaxed mb-6">
+                      Keep your existing parking option exactly intact while upgrading the presentation with a more visual Prked section for visitors who want a smoother arrival experience near the stadium.
+                    </p>
+                    <div className="grid gap-3 sm:grid-cols-2 mb-8">
+                      {[
+                        'Reserve nearby parking in advance',
+                        'Useful for fans driving on final weekend',
+                        'Keep your travel plan organized',
+                        'Same Prked destination link preserved',
+                      ].map((item) => (
+                        <div key={item} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-muted">
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                    <a
+                      href="https://prked.com?ref=KiyYrjV3"
+                      target="_blank"
+                      rel="nofollow sponsored noopener"
+                      className="inline-flex"
+                    >
+                      <Button className="btn-gold px-8 py-6 text-base md:text-lg text-center whitespace-normal">
+                        🚗 Need Parking? Reserve or List Your Spot
+                      </Button>
+                    </a>
+                  </div>
+                </div>
 
-              <div className="relative">
-                <div
-                  className="eg-widget"
-                  data-widget="search"
-                  data-program="us-expedia"
-                  data-lobs="stays,flights"
-                  data-network="pz"
-                  data-camref="1011l5KI3J"
-                  data-pubref=""
-                />
-              </div>
-
-              <div className="relative mt-8 flex justify-center">
-                <a
-                  href="https://prked.com?ref=KiyYrjV3"
-                  target="_blank"
-                  rel="nofollow sponsored noopener"
-                >
-                  <Button className="btn-gold px-8 py-6 text-base md:text-lg text-center whitespace-normal">
-                    🚗 Need Parking? Reserve or List Your Spot
-                  </Button>
-                </a>
+                <div className="border-t border-white/10 bg-slate-950/70 p-6 md:p-8 lg:border-l lg:border-t-0">
+                  <div className="mb-5">
+                    <h3 className="text-2xl font-bold text-white mb-2">Search More Travel Options</h3>
+                    <p className="text-sm text-muted leading-relaxed">
+                      Explore additional Expedia stay and flight options for the FIFA World Cup 2026 Final weekend without changing any of the featured hotel recommendations above.
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white p-3">
+                    <div
+                      className="eg-widget"
+                      data-widget="search"
+                      data-program="us-expedia"
+                      data-lobs="stays,flights"
+                      data-network="pz"
+                      data-camref="1011l5KI3J"
+                      data-pubref=""
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -541,6 +601,15 @@ export default function Home() {
                 </Button>
               </a>
             </Link>
+          </div>
+        </section>
+
+        <section className="py-10">
+          <div className="container">
+            <AdsterraNativeBanner
+              title="Sponsored travel recommendations before footer"
+              minHeight={320}
+            />
           </div>
         </section>
       </main>
