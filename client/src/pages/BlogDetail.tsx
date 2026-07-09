@@ -4,6 +4,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Loader2 } from 'lucide-react';
 import { Link } from 'wouter';
+import AdsterraNativeBanner from '@/components/AdsterraNativeBanner';
 
 export default function BlogDetail() {
   const [match, params] = useRoute<{ slug: string }>('/blog/:slug');
@@ -95,6 +96,15 @@ export default function BlogDetail() {
                 dangerouslySetInnerHTML={{ __html: postData?.content || '' }}
               />
             </div>
+          </div>
+        </section>
+
+        <section className="py-8">
+          <div className="container max-w-3xl">
+            <AdsterraNativeBanner
+              title="Sponsored travel recommendations inside blog article"
+              minHeight={320}
+            />
           </div>
         </section>
 

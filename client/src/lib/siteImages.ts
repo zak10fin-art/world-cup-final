@@ -8,6 +8,8 @@ export const homeImages = {
   nycSkyline: '/images/nyc-skyline.webp',
   americanDream: '/images/american-dream.webp',
   restaurantInterior: '/images/restaurant-interior.webp',
+  parkingPromo: '/images/prked-promo.webp',
+  esimPromo: '/images/esimania-promo.webp',
 } as const;
 
 export function getBlogImageForSlug(slug: string) {
