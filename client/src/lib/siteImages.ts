@@ -10,6 +10,7 @@ export const homeImages = {
   restaurantInterior: '/images/restaurant-interior.webp',
   parkingPromo: '/images/prked-promo.webp',
   esimPromo: '/images/esimania-promo.webp',
+  ticketsFans: '/images/tickets-fans.webp',
 } as const;
 
 export function getBlogImageForSlug(slug: string) {
