@@ -13,24 +13,35 @@ interface SEOHeadProps {
   modifiedDate?: string;
 }
 
+function toAbsoluteUrl(value: string | undefined, fallback: string) {
+  try {
+    return new URL(value || fallback, SITE_URL).toString();
+  } catch {
+    return fallback;
+  }
+}
+
 export function SEOHead({
   title,
   description,
   keywords,
   image = DEFAULT_OG_IMAGE,
-  url = typeof window !== 'undefined' ? new URL(window.location.pathname + window.location.search, SITE_URL).toString() : SITE_URL,
+  url = typeof window !== 'undefined'
+    ? new URL(window.location.pathname + window.location.search, SITE_URL).toString()
+    : SITE_URL,
   type = 'website',
   author,
   publishedDate,
   modifiedDate,
 }: SEOHeadProps) {
+  const canonicalUrl = toAbsoluteUrl(url, SITE_URL);
+  const imageUrl = toAbsoluteUrl(image, DEFAULT_OG_IMAGE);
+
   useEffect(() => {
-    // Update title
     document.title = `${title} | World Cup Final Stay`;
 
-    // Update meta tags
     const updateMeta = (name: string, content: string) => {
-      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+      let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement | null;
       if (!meta) {
         meta = document.createElement('meta');
         meta.name = name;
@@ -40,7 +51,7 @@ export function SEOHead({
     };
 
     const updateProperty = (property: string, content: string) => {
-      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+      let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement | null;
       if (!meta) {
         meta = document.createElement('meta');
         meta.setAttribute('property', property);
@@ -49,43 +60,40 @@ export function SEOHead({
       meta.content = content;
     };
 
-    // Standard meta tags
     updateMeta('description', description);
-    if (keywords) updateMeta('keywords', keywords);
     updateMeta('viewport', 'width=device-width, initial-scale=1.0');
-    updateMeta('robots', 'index, follow');
+    updateMeta('robots', 'index, follow, max-image-preview:large');
+    if (keywords) updateMeta('keywords', keywords);
+    if (author) updateMeta('author', author);
 
-    // Open Graph tags
     updateProperty('og:title', title);
     updateProperty('og:description', description);
-    updateProperty('og:image', image);
-    updateProperty('og:url', url);
+    updateProperty('og:image', imageUrl);
+    updateProperty('og:image:alt', title);
+    updateProperty('og:url', canonicalUrl);
     updateProperty('og:type', type);
     updateProperty('og:site_name', 'World Cup Final Stay');
 
-    // Twitter Card tags
     updateMeta('twitter:card', 'summary_large_image');
     updateMeta('twitter:title', title);
     updateMeta('twitter:description', description);
-    updateMeta('twitter:image', image);
-    updateMeta('twitter:url', url);
+    updateMeta('twitter:image', imageUrl);
+    updateMeta('twitter:url', canonicalUrl);
 
-    // Article specific tags
     if (type === 'article') {
       if (publishedDate) updateProperty('article:published_time', publishedDate);
       if (modifiedDate) updateProperty('article:modified_time', modifiedDate);
       if (author) updateProperty('article:author', author);
     }
 
-    // Canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!canonical) {
       canonical = document.createElement('link');
       canonical.rel = 'canonical';
       document.head.appendChild(canonical);
     }
-    canonical.href = url;
-  }, [title, description, keywords, image, url, type, author, publishedDate, modifiedDate]);
+    canonical.href = canonicalUrl;
+  }, [title, description, keywords, imageUrl, canonicalUrl, type, author, publishedDate, modifiedDate]);
 
   return null;
 }

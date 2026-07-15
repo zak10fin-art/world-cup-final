@@ -1,70 +1,45 @@
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
+import ContentPageLayout from '@/components/ContentPageLayout';
 
 export default function Terms() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950">
-      <Navigation />
+    <ContentPageLayout
+      title="Terms of Service | World Cup Final Stay"
+      description="Read the terms of service for World Cup Final Stay, including website usage, disclaimers, and affiliate travel content limitations."
+      keywords="terms of service, World Cup Final Stay, legal terms, affiliate travel site"
+      eyebrow="Website terms"
+      heading="Terms of Service"
+      intro="These terms explain the basic conditions for using World Cup Final Stay and the limitations that apply to travel-planning content, recommendations, and third-party links."
+      lastUpdated={new Date().toLocaleDateString()}
+    >
+      <h2>1. Acceptance of terms</h2>
+      <p>
+        By accessing this website, you agree to these terms. If you do not agree, please do not use the service.
+      </p>
 
-      <main className="flex-1">
-        <section className="py-20">
-          <div className="container max-w-3xl">
-            <h1 className="text-5xl font-bold text-white mb-8">Terms of Service</h1>
-            <p className="text-muted mb-8">Last updated: {new Date().toLocaleDateString()}</p>
+      <h2>2. Informational use only</h2>
+      <p>
+        World Cup Final Stay is designed to provide travel-planning information, booking pathways, and editorial guidance. Final booking decisions and external transactions take place on third-party platforms.
+      </p>
 
-            <div className="prose prose-invert max-w-none space-y-6 text-muted leading-relaxed">
-              <h2 className="text-3xl font-bold text-white mt-8 mb-4">1. Acceptance of Terms</h2>
-              <p>
-                By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
-              </p>
+      <h2>3. No guarantee of availability or pricing</h2>
+      <p>
+        Ticket inventory, hotel rates, parking availability, and travel offers may change at any time. We cannot guarantee that prices, availability, or partner pages remain unchanged after publication.
+      </p>
 
-              <h2 className="text-3xl font-bold text-white mt-8 mb-4">2. Use License</h2>
-              <p>
-                Permission is granted to temporarily download one copy of the materials (information or software) on World Cup Final Stay for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:
-              </p>
-              <ul className="space-y-2 ml-4">
-                <li>Modify or copy the materials</li>
-                <li>Use the materials for any commercial purpose or for any public display</li>
-                <li>Attempt to decompile or reverse engineer any software contained on the website</li>
-                <li>Remove any copyright or other proprietary notations from the materials</li>
-                <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
-              </ul>
+      <h2>4. External links</h2>
+      <p>
+        This website links to third-party services. We are not responsible for the content, terms, or booking outcomes on those external sites.
+      </p>
 
-              <h2 className="text-3xl font-bold text-white mt-8 mb-4">3. Disclaimer</h2>
-              <p>
-                The materials on World Cup Final Stay are provided on an 'as is' basis. World Cup Final Stay makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
-              </p>
+      <h2>5. Limitation of liability</h2>
+      <p>
+        The website is provided on an “as is” basis. World Cup Final Stay is not liable for losses or damages arising from reliance on website content or from bookings made through external partners.
+      </p>
 
-              <h2 className="text-3xl font-bold text-white mt-8 mb-4">4. Limitations</h2>
-              <p>
-                In no event shall World Cup Final Stay or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on World Cup Final Stay.
-              </p>
-
-              <h2 className="text-3xl font-bold text-white mt-8 mb-4">5. Accuracy of Materials</h2>
-              <p>
-                The materials appearing on World Cup Final Stay could include technical, typographical, or photographic errors. World Cup Final Stay does not warrant that any of the materials on its website are accurate, complete, or current. World Cup Final Stay may make changes to the materials contained on its website at any time without notice.
-              </p>
-
-              <h2 className="text-3xl font-bold text-white mt-8 mb-4">6. Links</h2>
-              <p>
-                World Cup Final Stay has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by World Cup Final Stay of the site. Use of any such linked website is at the user's own risk.
-              </p>
-
-              <h2 className="text-3xl font-bold text-white mt-8 mb-4">7. Modifications</h2>
-              <p>
-                World Cup Final Stay may revise these terms of service for its website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service.
-              </p>
-
-              <h2 className="text-3xl font-bold text-white mt-8 mb-4">8. Governing Law</h2>
-              <p>
-                These terms and conditions are governed by and construed in accordance with the laws of the United States, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
-              </p>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-    </div>
+      <h2>6. Changes to these terms</h2>
+      <p>
+        These terms may be updated from time to time. Continued use of the website after updates means you accept the revised version.
+      </p>
+    </ContentPageLayout>
   );
 }

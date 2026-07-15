@@ -1,13 +1,11 @@
 import { useEffect, useRef } from 'react';
+import { ADSTERRA_CONTAINER_ID, ADSTERRA_SCRIPT_SRC } from '@/lib/siteAds';
 
 interface AdsterraNativeBannerProps {
   title?: string;
   className?: string;
   minHeight?: number;
 }
-
-const ADSTERRA_SCRIPT_SRC = 'https://pl30222336.effectivecpmnetwork.com/962410eee7e244c6ea3f4d9d3f9213e5/invoke.js';
-const ADSTERRA_CONTAINER_ID = 'container-962410eee7e244c6ea3f4d9d3f9213e5';
 
 export default function AdsterraNativeBanner({
   title = 'Sponsored travel recommendation',
@@ -36,8 +34,8 @@ export default function AdsterraNativeBanner({
     script.setAttribute('data-cfasync', 'false');
     script.src = ADSTERRA_SCRIPT_SRC;
 
-    mountNode.appendChild(script);
     mountNode.appendChild(container);
+    mountNode.appendChild(script);
 
     return () => {
       mountNode.innerHTML = '';
@@ -46,7 +44,10 @@ export default function AdsterraNativeBanner({
   }, [minHeight]);
 
   return (
-    <div className={`overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-glass ${className}`.trim()}>
+    <div className={`overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 shadow-glass ${className}`.trim()}>
+      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-slate-300/75">
+        Sponsored recommendation
+      </p>
       <div
         ref={mountRef}
         aria-label={title}

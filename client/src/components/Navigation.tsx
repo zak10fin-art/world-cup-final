@@ -16,59 +16,60 @@ export default function Navigation() {
   return (
     <nav className="sticky-nav">
       <div className="container">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+        <div className="flex h-20 items-center justify-between gap-4">
           <Link href="/">
-            <a className="flex items-center gap-3 font-bold text-xl tracking-wider uppercase hover:text-accent transition-colors">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-yellow-400 flex items-center justify-center text-black font-bold text-sm shadow-lg">
+            <a className="flex items-center gap-3 text-lg font-bold tracking-wide text-white transition-colors hover:text-accent sm:text-xl">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-accent to-yellow-300 text-lg font-black text-slate-950 shadow-lg shadow-accent/20">
                 ⚽
               </div>
-              <span className="hidden sm:inline">World Cup Final Stay</span>
-              <span className="sm:hidden">WCFS</span>
+              <div>
+                <span className="hidden sm:block">World Cup Final Stay</span>
+                <span className="block text-xs font-medium uppercase tracking-[0.2em] text-slate-300/80">MetLife 2026 travel</span>
+              </div>
             </a>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden items-center gap-7 md:flex">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <a className="text-muted hover:text-foreground transition-colors text-sm font-medium">
+                <a className="text-sm font-semibold text-slate-200 transition-colors hover:text-accent">
                   {link.label}
                 </a>
               </Link>
             ))}
-            <Button className="btn-gold">
-              Book Now
-            </Button>
+            <a href="/#tickets">
+              <Button className="btn-gold px-5">Get Tickets</Button>
+            </a>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors"
-            aria-label="Toggle menu"
+            onClick={() => setIsOpen((prev) => !prev)}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white transition hover:bg-white/10 md:hidden"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isOpen}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden pb-4 border-t border-white/10">
-            <div className="flex flex-col gap-3 mt-4">
-              {navLinks.map((link) => (
-                <Link key={link.href} href={link.href}>
-                  <a
-                    className="block px-4 py-2 text-muted hover:text-foreground hover:bg-white/10 rounded-lg transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                </Link>
-              ))}
-              <Button className="btn-gold w-full">
-                Book Now
-              </Button>
+          <div className="border-t border-white/10 pb-5 pt-4 md:hidden">
+            <div className="glass-card rounded-3xl p-4">
+              <div className="flex flex-col gap-2">
+                {navLinks.map((link) => (
+                  <Link key={link.href} href={link.href}>
+                    <a
+                      className="rounded-2xl px-4 py-3 text-base font-medium text-slate-100 transition hover:bg-white/10 hover:text-accent"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  </Link>
+                ))}
+                <a href="/#tickets" onClick={() => setIsOpen(false)} className="pt-2">
+                  <Button className="btn-gold w-full">Get Tickets</Button>
+                </a>
+              </div>
             </div>
           </div>
         )}

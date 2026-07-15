@@ -2,18 +2,32 @@ import { useEffect } from 'react';
 import { SITE_EMAIL, SITE_URL } from '@/lib/siteConfig';
 
 interface StructuredDataProps {
-  data: Record<string, any>;
+  data: Record<string, unknown>;
+}
+
+function schemaKey(data: Record<string, unknown>) {
+  const type = String(data['@type'] || 'schema');
+  const identity = String(data.url || data.name || data.headline || type);
+  return `${type}:${identity}`;
 }
 
 export function StructuredData({ data }: StructuredDataProps) {
   useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
+    const key = schemaKey(data);
+    const selector = `script[type="application/ld+json"][data-schema-key="${CSS.escape(key)}"]`;
+    let script = document.head.querySelector(selector) as HTMLScriptElement | null;
+
+    if (!script) {
+      script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.dataset.schemaKey = key;
+      document.head.appendChild(script);
+    }
+
     script.textContent = JSON.stringify(data);
-    document.head.appendChild(script);
 
     return () => {
-      document.head.removeChild(script);
+      script?.remove();
     };
   }, [data]);
 
@@ -26,16 +40,15 @@ export const organizationSchema = {
   name: 'World Cup Final Stay',
   url: SITE_URL,
   logo: `${SITE_URL}/images/world-cup-match.webp`,
-  description: 'Premium travel guide and hotel booking assistance for FIFA World Cup 2026 Final at MetLife Stadium',
-  sameAs: [
-    'https://www.facebook.com/worldcupfinalstay',
-    'https://www.twitter.com/worldcupfinalstay',
-    'https://www.instagram.com/worldcupfinalstay',
-  ],
+  email: SITE_EMAIL,
+  description: 'Premium travel guide and hotel booking assistance for the FIFA World Cup 2026 Final at MetLife Stadium.',
+  areaServed: ['United States', 'New Jersey', 'New York'],
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'Customer Support',
     email: SITE_EMAIL,
+    areaServed: 'US',
+    availableLanguage: ['English'],
   },
 };
 
@@ -43,11 +56,12 @@ export const eventSchema = {
   '@context': 'https://schema.org',
   '@type': 'Event',
   name: 'FIFA World Cup 2026 Final',
-  description: 'The final match of the FIFA World Cup 2026 at MetLife Stadium',
+  description: 'The final match of the FIFA World Cup 2026 at MetLife Stadium.',
+  image: [`${SITE_URL}/images/world-cup-match.webp`],
   startDate: '2026-07-19T20:00:00-04:00',
   endDate: '2026-07-19T23:00:00-04:00',
-  eventAttendanceMode: 'OfflineEventAttendanceMode',
-  eventStatus: 'EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
   location: {
     '@type': 'Place',
     name: 'MetLife Stadium',
@@ -91,7 +105,7 @@ export const articleSchema = (article: {
   '@type': 'NewsArticle',
   headline: article.title,
   description: article.description,
-  image: article.image,
+  image: article.image ? [article.image] : [`${SITE_URL}/images/world-cup-match.webp`],
   datePublished: article.datePublished,
   dateModified: article.dateModified || article.datePublished,
   author: {
@@ -110,6 +124,19 @@ export const articleSchema = (article: {
     '@type': 'WebPage',
     '@id': article.url,
   },
+});
+
+export const faqPageSchema = (items: { question: string; answer: string }[]) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
 });
 
 export default StructuredData;

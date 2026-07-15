@@ -4,117 +4,56 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10 bg-black/30 backdrop-blur-sm">
-      <div className="container py-12">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Brand */}
+    <footer className="border-t border-white/10 bg-black/35 backdrop-blur-sm">
+      <div className="container py-14">
+        <div className="mb-10 grid gap-8 md:grid-cols-4">
           <div>
-            <h3 className="font-bold text-lg mb-4 text-accent">World Cup Final Stay</h3>
-            <p className="text-muted text-sm leading-relaxed">
-              Your premium guide to luxury accommodation near MetLife Stadium for the FIFA World Cup 2026 Final.
+            <h3 className="text-xl font-bold text-accent">World Cup Final Stay</h3>
+            <p className="mt-4 text-sm leading-7 text-slate-300/88">
+              A premium travel hub for World Cup Final visitors planning tickets, hotels, parking, and match-week logistics near MetLife Stadium.
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/">
-                  <a className="text-muted hover:text-accent transition-colors">Home</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog">
-                  <a className="text-muted hover:text-accent transition-colors">Blog</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/about">
-                  <a className="text-muted hover:text-accent transition-colors">About</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact">
-                  <a className="text-muted hover:text-accent transition-colors">Contact</a>
-                </Link>
-              </li>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-white">Explore</h4>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li><Link href="/"><a className="footer-link">Home</a></Link></li>
+              <li><Link href="/blog"><a className="footer-link">Travel Blog</a></Link></li>
+              <li><Link href="/about"><a className="footer-link">About</a></Link></li>
+              <li><Link href="/contact"><a className="footer-link">Contact</a></Link></li>
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/privacy">
-                  <a className="text-muted hover:text-accent transition-colors">Privacy Policy</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms">
-                  <a className="text-muted hover:text-accent transition-colors">Terms of Service</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/affiliate-disclosure">
-                  <a className="text-muted hover:text-accent transition-colors">Affiliate Disclosure</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/cookies">
-                  <a className="text-muted hover:text-accent transition-colors">Cookie Policy</a>
-                </Link>
-              </li>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-white">Planning links</h4>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li><a href="/#tickets" className="footer-link">FIFA Final Tickets</a></li>
+              <li><a href="/#hotels" className="footer-link">Hotels Near MetLife Stadium</a></li>
+              <li><a href="/#parking" className="footer-link">Parking Options</a></li>
+              <li><a href="/#faq" className="footer-link">FAQ</a></li>
             </ul>
           </div>
 
-          {/* Social */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Follow Us</h4>
-            <div className="flex gap-3">
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-accent/20 flex items-center justify-center transition-colors"
-              >
-                📷
-              </a>
-              <a
-                href="#"
-                aria-label="Twitter"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-accent/20 flex items-center justify-center transition-colors"
-              >
-                𝕏
-              </a>
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-accent/20 flex items-center justify-center transition-colors"
-              >
-                f
-              </a>
-            </div>
+            <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-white">Legal</h4>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li><Link href="/privacy"><a className="footer-link">Privacy Policy</a></Link></li>
+              <li><Link href="/terms"><a className="footer-link">Terms of Service</a></Link></li>
+              <li><Link href="/affiliate-disclosure"><a className="footer-link">Affiliate Disclosure</a></Link></li>
+              <li><Link href="/cookies"><a className="footer-link">Cookie Policy</a></Link></li>
+            </ul>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-white/10 pt-8">
-          {/* Affiliate Disclosure */}
-          <div className="mb-6 p-4 bg-white/5 rounded-lg border border-white/10">
-            <p className="text-xs text-muted leading-relaxed">
-              <strong className="text-accent">Affiliate Disclosure:</strong> World Cup Final Stay contains affiliate links to Expedia and other travel booking services. When you click on these links and make a purchase, we may earn a commission at no additional cost to you. This helps us maintain and improve our content. We only recommend products and services we believe provide value to our readers.
-            </p>
-          </div>
+        <div className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-glass">
+          <p className="text-sm leading-7 text-slate-300/85">
+            <strong className="text-accent">Affiliate Disclosure:</strong> World Cup Final Stay includes affiliate links for tickets, hotels, parking, and travel services. If you book through these links, we may earn a commission at no extra cost to you. Recommendations are selected to support fans planning for the FIFA World Cup Final.
+          </p>
+        </div>
 
-          {/* Bottom Bar */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted">
-            <p>&copy; {currentYear} World Cup Final Stay. All rights reserved.</p>
-            <p>
-              Designed for football fans • Powered by premium content • Updated daily
-            </p>
-          </div>
+        <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
+          <p>&copy; {currentYear} World Cup Final Stay. All rights reserved.</p>
+          <p>Optimized for football fans planning travel to the FIFA World Cup 2026 Final.</p>
         </div>
       </div>
     </footer>

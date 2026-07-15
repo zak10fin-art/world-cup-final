@@ -1,60 +1,38 @@
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
 import { Link } from 'wouter';
-import SEOHead from '@/components/SEOHead';
+import ContentPageLayout from '@/components/ContentPageLayout';
 
 export default function About() {
   return (
-    <>
-      <SEOHead
-        title="About World Cup Final Stay - Premium World Cup 2026 Travel Guide"
-        description="Learn about World Cup Final Stay, your premier destination for FIFA World Cup 2026 Final hotel booking and travel guidance near MetLife Stadium."
-        keywords="about, World Cup 2026, travel guide, MetLife Stadium"
-      />
-      <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950">
-        <Navigation />
+    <ContentPageLayout
+      title="About World Cup Final Stay - Premium World Cup 2026 Travel Guide"
+      description="Learn about World Cup Final Stay, your premium destination for FIFA World Cup 2026 Final travel planning, hotel guidance, and match-week logistics near MetLife Stadium."
+      keywords="about, World Cup 2026, travel guide, MetLife Stadium"
+      eyebrow="About the project"
+      heading="Planning help for football fans heading to MetLife Stadium"
+      intro="World Cup Final Stay is built for supporters who want a fast, premium, and easy way to organize tickets, hotels, parking, and essential travel decisions for the FIFA World Cup 2026 Final."
+    >
+      <h2>What this website helps you do</h2>
+      <ul>
+        <li>Compare hotel options near MetLife Stadium</li>
+        <li>Discover match-week planning advice for New Jersey and New York</li>
+        <li>Review parking and connectivity options before final weekend</li>
+        <li>Move from ticket planning to accommodation planning with less friction</li>
+      </ul>
 
-        <main className="flex-1">
-          <section className="py-20">
-            <div className="container max-w-3xl">
-              <h1 className="text-5xl font-bold text-white mb-8">About World Cup Final Stay</h1>
+      <h2>Editorial approach</h2>
+      <p>
+        The site focuses on practical travel decisions with a premium, mobile-first experience. Visitors should be able to understand the event, secure priority bookings, and continue through the rest of the trip-planning journey without getting lost in unnecessary clutter.
+      </p>
 
-              <div className="prose prose-invert max-w-none space-y-6 text-muted leading-relaxed">
-                <p>
-                  World Cup Final Stay is your premier destination for luxury travel guidance and hotel booking assistance for the FIFA World Cup 2026 Final at MetLife Stadium in East Rutherford, New Jersey.
-                </p>
+      <h2>Why MetLife Stadium planning matters</h2>
+      <p>
+        The FIFA World Cup Final will create intense demand across tickets, hotels, local transport, and parking. A focused planning hub helps fans act earlier and avoid last-minute stress.
+      </p>
 
-                <h2 className="text-3xl font-bold text-white mt-8 mb-4">Our Mission</h2>
-                <p>
-                  We are dedicated to helping football fans worldwide discover premium accommodation options near MetLife Stadium and providing comprehensive travel guides to make the FIFA World Cup 2026 Final an unforgettable experience.
-                </p>
-
-                <h2 className="text-3xl font-bold text-white mt-8 mb-4">What We Offer</h2>
-                <ul className="space-y-3">
-                  <li>✓ Curated hotel recommendations near MetLife Stadium</li>
-                  <li>✓ Direct booking links through trusted partners like Expedia</li>
-                  <li>✓ Comprehensive travel guides and tips</li>
-                  <li>✓ Match-day planning and logistics information</li>
-                  <li>✓ New York and New Jersey travel insights</li>
-                  <li>✓ Expert advice on accommodation and transportation</li>
-                </ul>
-
-                <h2 className="text-3xl font-bold text-white mt-8 mb-4">Why Choose Us</h2>
-                <p>
-                  With our extensive knowledge of the New York and New Jersey area, combined with direct partnerships with leading travel booking platforms, we provide fans with the most convenient and reliable way to secure their stay for football's biggest night.
-                </p>
-
-                <h2 className="text-3xl font-bold text-white mt-8 mb-4">Contact Us</h2>
-                <p>
-                  Have questions or need assistance? <Link href="/contact"><a className="text-accent hover:underline">Contact us</a></Link> and we'll be happy to help you plan your World Cup 2026 Final experience.
-                </p>
-              </div>
-            </div>
-          </section>
-        </main>
-
-        <Footer />
-      </div>
-    </>
+      <h2>Need help?</h2>
+      <p>
+        If you have questions about the site or need general planning guidance, visit the <Link href="/contact"><a>contact page</a></Link>.
+      </p>
+    </ContentPageLayout>
   );
 }

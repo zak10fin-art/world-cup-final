@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'wouter';
+import { Loader2 } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import AdsterraNativeBanner from '@/components/AdsterraNativeBanner';
+import GoogleAdSense from '@/components/GoogleAdSense';
+import { adsenseSlots, hasAdSenseSlot } from '@/lib/siteAds';
 
 export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -30,140 +32,159 @@ export default function Blog() {
         description="Read hotel guides, stadium tips, transport advice, and New York and New Jersey recommendations for the FIFA World Cup 2026 Final."
         keywords="World Cup 2026 blog, MetLife Stadium travel guide, New Jersey hotels, NYC attractions"
       />
-      <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-950 via-blue-950 to-slate-950">
-      <Navigation />
 
-      <main className="flex-1">
-        {/* Header */}
-        <section className="py-20 border-b border-white/10">
-          <div className="container">
-            <h1 className="text-5xl font-bold mb-4 text-white">World Cup Travel Blog</h1>
-            <p className="text-muted max-w-2xl">
-              Expert insights, travel tips, and guides for the FIFA World Cup 2026 Final and your stay near MetLife Stadium.
-            </p>
-          </div>
-        </section>
+      <div className="page-shell">
+        <Navigation />
 
-        {/* Category Filter */}
-        <section className="py-8 border-b border-white/10 bg-white/5">
-          <div className="container">
-            <div className="flex flex-wrap gap-2">
-              <Button
-                onClick={() => {
-                  setSelectedCategory(null);
-                  setPage(0);
-                }}
-                variant={selectedCategory === null ? 'default' : 'outline'}
-                className={selectedCategory === null ? 'btn-gold' : 'border-white/20'}
-              >
-                All Posts
-              </Button>
-              {categories?.map((cat: any) => (
-                <Button
-                  key={cat.id}
-                  onClick={() => {
-                    setSelectedCategory(cat.slug);
-                    setPage(0);
-                  }}
-                  variant={selectedCategory === cat.slug ? 'default' : 'outline'}
-                  className={selectedCategory === cat.slug ? 'btn-gold' : 'border-white/20'}
-                >
-                  {cat.name}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-8">
-          <div className="container">
-            <AdsterraNativeBanner
-              title="Sponsored travel recommendations on blog listing"
-              minHeight={320}
-            />
-          </div>
-        </section>
-
-        {/* Blog Posts Grid */}
-        <section className="py-20">
-          <div className="container">
-            {filteredPosts.length === 0 ? (
-              <div className="text-center py-12">
-                <Loader2 className="animate-spin mx-auto mb-4" />
-                <p className="text-muted">Loading posts...</p>
-              </div>
-            ) : (
-              <>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                  {filteredPosts.map((post: any) => (
-                    <Link key={post.id} href={`/blog/${post.slug}`}>
-                      <a className="glass-card rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-300 group flex flex-col h-full">
-                        <div className="aspect-video bg-gradient-to-br from-accent/30 to-accent/10 flex items-center justify-center group-hover:from-accent/40 group-hover:to-accent/20 transition-colors">
-                          {post.featuredImage ? (
-                            <img
-                              src={post.featuredImage}
-                              alt={post.imageAlt || post.title}
-                              className="w-full h-full object-cover"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          ) : (
-                            <span className="text-5xl">📰</span>
-                          )}
-                        </div>
-                        <div className="p-6 flex flex-col flex-1">
-                          <div className="mb-3">
-                            <span className="inline-block px-2 py-1 rounded-full bg-accent/20 text-accent text-xs font-semibold uppercase">
-                              {post.blog_categories?.name || 'Blog'}
-                            </span>
-                          </div>
-                          <h3 className="text-xl font-bold text-white mb-2 group-hover:text-accent transition-colors line-clamp-2">
-                            {post.title}
-                          </h3>
-                          <p className="text-muted text-sm mb-4 flex-1 line-clamp-3">
-                            {post.excerpt}
-                          </p>
-                          <div className="flex justify-between items-center text-xs text-muted">
-                            <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-                            <span className="text-accent">Read More →</span>
-                          </div>
-                        </div>
-                      </a>
-                    </Link>
-                  ))}
+        <main className="flex-1">
+          <section className="page-section border-b border-white/10 pb-10">
+            <div className="container">
+              <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
+                <div>
+                  <p className="eyebrow">Travel guides & planning</p>
+                  <h1 className="page-title max-w-4xl">World Cup 2026 travel articles built for fast decision-making</h1>
+                  <p className="page-intro max-w-3xl">
+                    Browse match-day guides, hotel planning advice, transportation tips, and New York–New Jersey travel ideas to support your FIFA World Cup Final trip.
+                  </p>
                 </div>
 
-                {/* Pagination */}
-                {(allPosts?.total || 0) > POSTS_PER_PAGE && (
-                  <div className="flex justify-center gap-4">
-                    <Button
-                      onClick={() => setPage(Math.max(0, page - 1))}
-                      disabled={page === 0}
-                      variant="outline"
-                      className="border-white/20"
-                    >
-                      Previous
-                    </Button>
-                    <span className="flex items-center text-muted">
-                      Page {page + 1} of {Math.ceil((allPosts?.total || 0) / POSTS_PER_PAGE)}
-                    </span>
-                    <Button
-                      onClick={() => setPage(page + 1)}
-                      disabled={(page + 1) * POSTS_PER_PAGE >= (allPosts?.total || 0)}
-                      variant="outline"
-                      className="border-white/20"
-                    >
-                      Next
-                    </Button>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        </section>
-      </main>
+                <div className="glass-card rounded-3xl p-6">
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">Most important first</p>
+                  <p className="mt-3 text-base leading-7 text-slate-200">
+                    Secure <a href="/#tickets" className="text-accent underline-offset-4 hover:underline">tickets</a>, compare <a href="/#hotels" className="text-accent underline-offset-4 hover:underline">hotels</a>, then use the blog to refine transport, parking, and local planning.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
 
-      <Footer />
+          <section className="border-b border-white/10 bg-white/5 py-8">
+            <div className="container">
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  onClick={() => {
+                    setSelectedCategory(null);
+                    setPage(0);
+                  }}
+                  variant={selectedCategory === null ? 'default' : 'outline'}
+                  className={selectedCategory === null ? 'btn-gold' : 'border-white/20 bg-transparent text-slate-100'}
+                >
+                  All Posts
+                </Button>
+                {categories?.map((cat: any) => (
+                  <Button
+                    key={cat.id}
+                    onClick={() => {
+                      setSelectedCategory(cat.slug);
+                      setPage(0);
+                    }}
+                    variant={selectedCategory === cat.slug ? 'default' : 'outline'}
+                    className={selectedCategory === cat.slug ? 'btn-gold' : 'border-white/20 bg-transparent text-slate-100'}
+                  >
+                    {cat.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="py-8">
+            <div className="container">
+              <AdsterraNativeBanner title="Sponsored travel recommendations on blog listing" minHeight={320} />
+            </div>
+          </section>
+
+          {hasAdSenseSlot(adsenseSlots.blogListing) && (
+            <section className="pb-2">
+              <div className="container">
+                <div className="sponsored-shell">
+                  <p className="sponsored-label">Advertisement</p>
+                  <GoogleAdSense adSlot={adsenseSlots.blogListing} className="min-h-[120px]" />
+                </div>
+              </div>
+            </section>
+          )}
+
+          <section className="content-auto py-16 md:py-20">
+            <div className="container">
+              {filteredPosts.length === 0 ? (
+                <div className="glass-card rounded-3xl py-14 text-center">
+                  <Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-accent" />
+                  <p className="text-slate-300">Loading posts…</p>
+                </div>
+              ) : (
+                <>
+                  <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+                    {filteredPosts.map((post: any) => (
+                      <Link key={post.id} href={`/blog/${post.slug}`}>
+                        <a className="article-card group flex h-full flex-col overflow-hidden rounded-[28px] border border-white/10 bg-white/5 shadow-glass transition duration-300 hover:-translate-y-1 hover:border-accent/30">
+                          <div className="aspect-[16/10] overflow-hidden bg-slate-900">
+                            {post.featuredImage ? (
+                              <img
+                                src={post.featuredImage}
+                                alt={post.imageAlt || post.title}
+                                className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            ) : (
+                              <div className="flex h-full items-center justify-center text-5xl">📰</div>
+                            )}
+                          </div>
+
+                          <div className="flex flex-1 flex-col p-6">
+                            <div className="mb-4 flex items-center justify-between gap-3 text-xs text-slate-300/80">
+                              <span className="rounded-full border border-accent/20 bg-accent/10 px-3 py-1 font-semibold uppercase tracking-[0.16em] text-accent">
+                                {post.blog_categories?.name || 'Blog'}
+                              </span>
+                              <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                            </div>
+
+                            <h2 className="text-2xl font-bold text-white transition-colors group-hover:text-accent">
+                              {post.title}
+                            </h2>
+                            <p className="mt-3 flex-1 text-base leading-7 text-slate-300/88 line-clamp-3">
+                              {post.excerpt}
+                            </p>
+                            <span className="mt-6 inline-flex items-center text-sm font-semibold text-accent">
+                              Read article →
+                            </span>
+                          </div>
+                        </a>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {(allPosts?.total || 0) > POSTS_PER_PAGE && (
+                    <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                      <Button
+                        onClick={() => setPage(Math.max(0, page - 1))}
+                        disabled={page === 0}
+                        variant="outline"
+                        className="border-white/20 bg-transparent text-slate-100"
+                      >
+                        Previous
+                      </Button>
+                      <span className="text-sm text-slate-300">
+                        Page {page + 1} of {Math.ceil((allPosts?.total || 0) / POSTS_PER_PAGE)}
+                      </span>
+                      <Button
+                        onClick={() => setPage(page + 1)}
+                        disabled={(page + 1) * POSTS_PER_PAGE >= (allPosts?.total || 0)}
+                        variant="outline"
+                        className="border-white/20 bg-transparent text-slate-100"
+                      >
+                        Next
+                      </Button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </section>
+        </main>
+
+        <Footer />
       </div>
     </>
   );

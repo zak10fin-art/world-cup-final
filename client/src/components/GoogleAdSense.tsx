@@ -1,4 +1,5 @@
 import { CSSProperties, useEffect, useRef } from 'react';
+import { ADSENSE_CLIENT, ADSENSE_SCRIPT_SRC } from '@/lib/siteAds';
 
 declare global {
   interface Window {
@@ -17,9 +18,6 @@ interface GoogleAdSenseProps {
   fullWidthResponsive?: boolean;
   bootstrapOnly?: boolean;
 }
-
-const ADSENSE_CLIENT = 'ca-pub-3639626531614258';
-const ADSENSE_SCRIPT_SRC = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`;
 
 function loadAdSenseScript(): Promise<void> {
   if (typeof window === 'undefined') {
@@ -70,7 +68,7 @@ export default function GoogleAdSense({
   fullWidthResponsive = true,
   bootstrapOnly = false,
 }: GoogleAdSenseProps) {
-  const adRef = useRef<HTMLModElement | null>(null);
+  const adRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -83,22 +81,31 @@ export default function GoogleAdSense({
 
         const adNode = adRef.current;
 
-        if (adNode.dataset.adStatus === 'initialized' || adNode.getAttribute('data-adsbygoogle-status') === 'done') {
+        if (
+          adNode.dataset.adsInitialized === 'true'
+          || adNode.getAttribute('data-adsbygoogle-status') === 'done'
+        ) {
           return;
         }
 
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-          adNode.dataset.adStatus = 'initialized';
-        } catch (error) {
-          const message = error instanceof Error ? error.message : String(error);
-          const duplicateInit = message.includes('All ins elements in the DOM with class=adsbygoogle already have ads in them')
-            || message.includes('adsbygoogle.push() error');
-
-          if (!duplicateInit) {
-            console.error('Google AdSense initialization error:', error);
+        requestAnimationFrame(() => {
+          if (cancelled || !adRef.current) {
+            return;
           }
-        }
+
+          try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+            adNode.dataset.adsInitialized = 'true';
+          } catch (error) {
+            const message = error instanceof Error ? error.message : String(error);
+            const duplicateInit = message.includes('All ins elements in the DOM with class=adsbygoogle already have ads in them')
+              || message.includes('adsbygoogle.push() error');
+
+            if (!duplicateInit) {
+              console.error('Google AdSense initialization error:', error);
+            }
+          }
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -107,7 +114,7 @@ export default function GoogleAdSense({
     return () => {
       cancelled = true;
     };
-  }, [adSlot, bootstrapOnly, format, layout, layoutKey, fullWidthResponsive]);
+  }, [adSlot, bootstrapOnly]);
 
   if (bootstrapOnly || !adSlot) {
     return null;
@@ -116,7 +123,9 @@ export default function GoogleAdSense({
   return (
     <div className={`overflow-hidden ${className}`.trim()}>
       <ins
-        ref={adRef}
+        ref={(node) => {
+          adRef.current = node;
+        }}
         className="adsbygoogle"
         style={{ display: 'block', width: '100%', ...style }}
         data-ad-client={ADSENSE_CLIENT}
