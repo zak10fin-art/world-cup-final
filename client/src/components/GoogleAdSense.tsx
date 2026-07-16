@@ -20,7 +20,7 @@ interface GoogleAdSenseProps {
 }
 
 function loadAdSenseScript(): Promise<void> {
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || !ADSENSE_CLIENT || !ADSENSE_SCRIPT_SRC) {
     return Promise.resolve();
   }
 
@@ -75,6 +75,10 @@ export default function GoogleAdSense({
 
     loadAdSenseScript()
       .then(() => {
+        if (!ADSENSE_CLIENT) {
+          return;
+        }
+
         if (cancelled || bootstrapOnly || !adSlot || !adRef.current) {
           return;
         }
@@ -101,14 +105,16 @@ export default function GoogleAdSense({
             const duplicateInit = message.includes('All ins elements in the DOM with class=adsbygoogle already have ads in them')
               || message.includes('adsbygoogle.push() error');
 
-            if (!duplicateInit) {
+            if (!duplicateInit && import.meta.env.DEV) {
               console.error('Google AdSense initialization error:', error);
             }
           }
         });
       })
       .catch((error) => {
-        console.error(error);
+        if (import.meta.env.DEV) {
+          console.error(error);
+        }
       });
 
     return () => {
@@ -116,7 +122,7 @@ export default function GoogleAdSense({
     };
   }, [adSlot, bootstrapOnly]);
 
-  if (bootstrapOnly || !adSlot) {
+  if (bootstrapOnly || !adSlot || !ADSENSE_CLIENT) {
     return null;
   }
 

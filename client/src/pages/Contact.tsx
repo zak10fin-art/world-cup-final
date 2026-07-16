@@ -63,6 +63,7 @@ export default function Contact() {
                   <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                     <Input
                       type="text"
+                      aria-label="Full name"
                       placeholder="Full name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -71,6 +72,7 @@ export default function Contact() {
                     />
                     <Input
                       type="email"
+                      aria-label="Email address"
                       placeholder="Email address"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -78,6 +80,7 @@ export default function Contact() {
                       className="min-h-12 rounded-2xl border-white/20 bg-white/10 px-4 text-base text-white placeholder:text-slate-300/70"
                     />
                     <textarea
+                      aria-label="Message"
                       placeholder="Tell us what you need help with"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -88,7 +91,7 @@ export default function Contact() {
                       Send Inquiry
                     </Button>
                     {submitted && (
-                      <p className="rounded-2xl border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
+                      <p aria-live="polite" className="rounded-2xl border border-emerald-400/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
                         Message sent successfully.
                       </p>
                     )}

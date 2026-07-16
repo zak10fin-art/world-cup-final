@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
 import AdsterraNativeBanner from '@/components/AdsterraNativeBanner';
@@ -6,7 +6,14 @@ import GoogleAdSense from '@/components/GoogleAdSense';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
-import StructuredData, { organizationSchema, eventSchema, faqPageSchema } from '@/components/StructuredData';
+import StructuredData, {
+  organizationSchema,
+  eventSchema,
+  faqPageSchema,
+  websiteSchema,
+  breadcrumbSchema,
+} from '@/components/StructuredData';
+import { SITE_URL } from '@/lib/siteConfig';
 import { adsenseSlots, hasAdSenseSlot } from '@/lib/siteAds';
 import { homeImages } from '@/lib/siteImages';
 
@@ -38,38 +45,64 @@ const faqItems = [
   },
 ];
 
-export default function Home() {
-  const [countdown, setCountdown] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
+function getCountdown() {
+  const finalDate = new Date('2026-07-19T20:00:00-04:00').getTime();
+  const now = Date.now();
+  const distance = finalDate - now;
+
+  if (distance <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  return {
+    days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+    minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+    seconds: Math.floor((distance % (1000 * 60)) / 1000),
+  };
+}
+
+const CountdownCard = memo(function CountdownCard() {
+  const [countdown, setCountdown] = useState(getCountdown);
 
   useEffect(() => {
-    const updateCountdown = () => {
-      const finalDate = new Date('2026-07-19T20:00:00-04:00').getTime();
-      const now = Date.now();
-      const distance = finalDate - now;
+    const interval = window.setInterval(() => {
+      setCountdown(getCountdown());
+    }, 1000);
 
-      if (distance <= 0) {
-        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        return;
-      }
-
-      setCountdown({
-        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((distance % (1000 * 60)) / 1000),
-      });
-    };
-
-    updateCountdown();
-    const interval = window.setInterval(updateCountdown, 1000);
     return () => window.clearInterval(interval);
   }, []);
 
+  return (
+    <div className="glass-card rounded-[32px] p-7 md:p-8">
+      <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-accent">Countdown to kickoff</p>
+      <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">FIFA World Cup 2026 Final</h2>
+      <p className="mb-7 text-sm leading-7 text-slate-200/85">
+        Final match day is getting closer. Demand for tickets, nearby hotels, and match-week travel support is expected to increase as the event approaches.
+      </p>
+
+      <div className="mb-6 grid grid-cols-4 gap-3">
+        {[
+          { label: 'Days', value: countdown.days },
+          { label: 'Hours', value: countdown.hours },
+          { label: 'Minutes', value: countdown.minutes },
+          { label: 'Seconds', value: countdown.seconds },
+        ].map((item) => (
+          <div key={item.label} className="countdown-box">
+            <strong className="block text-2xl text-white md:text-3xl">{String(item.value).padStart(2, '0')}</strong>
+            <span className="mt-1 block text-[11px] uppercase tracking-wider text-slate-300/82">{item.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-200/88">
+        <strong className="text-accent">Venue:</strong> MetLife Stadium, East Rutherford, New Jersey
+      </div>
+    </div>
+  );
+});
+
+export default function Home() {
   useEffect(() => {
     const existingScript = document.querySelector('script.eg-widgets-script');
     if (existingScript) return;
@@ -94,8 +127,14 @@ export default function Home() {
         type="website"
       />
       <StructuredData data={organizationSchema} />
+      <StructuredData data={websiteSchema} />
       <StructuredData data={eventSchema} />
       <StructuredData data={faqPageSchema(faqItems)} />
+      <StructuredData
+        data={breadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+        ])}
+      />
 
       <div className="page-shell">
         <Navigation />
@@ -133,7 +172,7 @@ export default function Home() {
                 </p>
 
                 <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                  <a href="#tickets" className="w-full sm:w-auto">
+                  <a href="https://tidd.ly/4paJtJI" target="_blank" rel="nofollow sponsored noopener noreferrer" aria-label="Buy FIFA World Cup Final 2026 tickets" className="w-full sm:w-auto">
                     <Button className="btn-gold w-full px-8 py-6 text-base md:text-lg">🎟️ Explore Final Tickets</Button>
                   </a>
                   <a href="#hotels" className="w-full sm:w-auto">
@@ -157,31 +196,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="glass-card rounded-[32px] p-7 md:p-8">
-                <p className="mb-2 text-sm font-bold uppercase tracking-[0.25em] text-accent">Countdown to kickoff</p>
-                <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">FIFA World Cup 2026 Final</h2>
-                <p className="mb-7 text-sm leading-7 text-slate-200/85">
-                  Final match day is getting closer. Demand for tickets, nearby hotels, and match-week travel support is expected to increase as the event approaches.
-                </p>
-
-                <div className="mb-6 grid grid-cols-4 gap-3">
-                  {[
-                    { label: 'Days', value: countdown.days },
-                    { label: 'Hours', value: countdown.hours },
-                    { label: 'Minutes', value: countdown.minutes },
-                    { label: 'Seconds', value: countdown.seconds },
-                  ].map((item) => (
-                    <div key={item.label} className="countdown-box">
-                      <strong className="block text-2xl text-white md:text-3xl">{String(item.value).padStart(2, '0')}</strong>
-                      <span className="mt-1 block text-[11px] uppercase tracking-wider text-slate-300/82">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-200/88">
-                  <strong className="text-accent">Venue:</strong> MetLife Stadium, East Rutherford, New Jersey
-                </div>
-              </div>
+              <CountdownCard />
             </div>
           </section>
 
@@ -231,7 +246,8 @@ export default function Home() {
                       <a
                         href="https://tidd.ly/4paJtJI"
                         target="_blank"
-                        rel="nofollow sponsored noopener"
+                        rel="nofollow sponsored noopener noreferrer"
+                        aria-label="Buy FIFA World Cup Final 2026 tickets"
                         className="w-full sm:w-auto"
                       >
                         <Button className="btn-gold w-full px-8 py-6 text-base md:text-lg">🎟️ Get Your Final Tickets Now</Button>
@@ -274,7 +290,7 @@ export default function Home() {
                   <div className="aspect-[16/10] overflow-hidden bg-slate-900">
                     <img
                       src={homeImages.worldOfBlue}
-                      alt="World of Blue hotel exterior near MetLife Stadium in East Rutherford"
+                      alt="Luxury hotel room interior representing the World of Blue stay near MetLife Stadium"
                       className="h-full w-full object-cover"
                       loading="lazy"
                       decoding="async"
@@ -302,7 +318,8 @@ export default function Home() {
                     <a
                       href="https://expedia.com/affiliates/jersey-city-hotels-world-of-blue.bjwWpXP"
                       target="_blank"
-                      rel="nofollow sponsored noopener"
+                      rel="nofollow sponsored noopener noreferrer"
+                      aria-label="Book World of Blue on Expedia"
                     >
                       <Button className="btn-gold w-full py-6 text-base">Check Availability</Button>
                     </a>
@@ -341,7 +358,8 @@ export default function Home() {
                     <a
                       href="https://expedia.com/affiliates/jersey-city-hotels-hampton-inn-carlstadt.XM6A88e"
                       target="_blank"
-                      rel="nofollow sponsored noopener"
+                      rel="nofollow sponsored noopener noreferrer"
+                      aria-label="Book Hampton Inn Carlstadt on Expedia"
                     >
                       <Button className="btn-gold w-full py-6 text-base">Book Now</Button>
                     </a>
@@ -365,6 +383,7 @@ export default function Home() {
                     data-network="pz"
                     data-camref="1011l5KI3J"
                     data-pubref=""
+                    aria-label="Expedia hotel and flight search widget"
                   />
                 </div>
               </div>
@@ -416,7 +435,7 @@ export default function Home() {
                     </div>
 
                     <div className="mt-8">
-                      <a href="https://prked.com?ref=KiyYrjV3" target="_blank" rel="nofollow sponsored noopener">
+                      <a href="https://prked.com?ref=KiyYrjV3" target="_blank" rel="nofollow sponsored noopener noreferrer" aria-label="Reserve or list parking with Prked">
                         <Button className="btn-gold px-8 py-6 text-base md:text-lg">🚗 Need Parking? Reserve or List Your Spot</Button>
                       </a>
                     </div>
@@ -470,7 +489,8 @@ export default function Home() {
                       <a
                         href="https://www.awin1.com/cread.php?awinmid=115715&awinaffid=2712174&ued=https%3A%2F%2Fesimania.com%2F%3Futm_source%3Dchatgpt.com&platform=ma"
                         target="_blank"
-                        rel="noopener noreferrer sponsored"
+                        rel="nofollow sponsored noopener noreferrer"
+                        aria-label="Buy eSIM from eSIMania"
                       >
                         <Button className="btn-gold px-8 py-6 text-base md:text-lg">Get Your eSIM Now</Button>
                       </a>

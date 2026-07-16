@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ADSTERRA_CONTAINER_ID, ADSTERRA_SCRIPT_SRC } from '@/lib/siteAds';
+import { ADSTERRA_CONTAINER_ID, ADSTERRA_SCRIPT_SRC, canRenderAdsterra } from '@/lib/siteAds';
 
 interface AdsterraNativeBannerProps {
   title?: string;
@@ -15,6 +15,9 @@ export default function AdsterraNativeBanner({
   const mountRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (!canRenderAdsterra()) {
+      return;
+    }
     const mountNode = mountRef.current;
 
     if (!mountNode || mountNode.dataset.adsterraInitialized === 'true') {
@@ -42,6 +45,10 @@ export default function AdsterraNativeBanner({
       delete mountNode.dataset.adsterraInitialized;
     };
   }, [minHeight]);
+
+  if (!canRenderAdsterra()) {
+    return null;
+  }
 
   return (
     <div className={`overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 shadow-glass ${className}`.trim()}>

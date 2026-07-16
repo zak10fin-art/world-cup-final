@@ -113,6 +113,9 @@ export default function BlogDetail() {
                   className="h-auto w-full rounded-[28px] object-cover shadow-glass"
                   loading="eager"
                   decoding="async"
+                  fetchPriority="high"
+                  width="1600"
+                  height="900"
                 />
               </div>
             </section>
@@ -152,7 +155,7 @@ export default function BlogDetail() {
                     After reading this guide, go back to the homepage to compare ticket options, hotels near MetLife Stadium, parking, and connectivity tools in one place.
                   </p>
                   <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                    <a href="/#tickets" className="w-full sm:w-auto">
+                    <a href="https://tidd.ly/4paJtJI" target="_blank" rel="nofollow sponsored noopener noreferrer" aria-label="Buy FIFA World Cup Final 2026 tickets" className="w-full sm:w-auto">
                       <span className="btn-gold inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-bold sm:w-auto">
                         Explore Tickets
                       </span>

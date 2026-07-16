@@ -73,11 +73,13 @@ export function SEOHead({
     updateProperty('og:url', canonicalUrl);
     updateProperty('og:type', type);
     updateProperty('og:site_name', 'World Cup Final Stay');
+    updateProperty('og:locale', 'en_US');
 
     updateMeta('twitter:card', 'summary_large_image');
     updateMeta('twitter:title', title);
     updateMeta('twitter:description', description);
     updateMeta('twitter:image', imageUrl);
+    updateMeta('twitter:image:alt', title);
     updateMeta('twitter:url', canonicalUrl);
 
     if (type === 'article') {

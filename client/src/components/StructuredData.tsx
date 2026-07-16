@@ -81,6 +81,19 @@ export const eventSchema = {
   },
 };
 
+export const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'World Cup Final Stay',
+  url: SITE_URL,
+  inLanguage: 'en-US',
+  publisher: {
+    '@type': 'Organization',
+    name: 'World Cup Final Stay',
+    url: SITE_URL,
+  },
+};
+
 export const breadcrumbSchema = (items: { name: string; url: string }[]) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -90,6 +103,36 @@ export const breadcrumbSchema = (items: { name: string; url: string }[]) => ({
     name: item.name,
     item: item.url,
   })),
+});
+
+export const collectionPageSchema = (page: {
+  name: string;
+  description: string;
+  url: string;
+  itemUrls?: string[];
+}) => ({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: page.name,
+  description: page.description,
+  url: page.url,
+  isPartOf: {
+    '@type': 'WebSite',
+    name: 'World Cup Final Stay',
+    url: SITE_URL,
+  },
+  ...(page.itemUrls && page.itemUrls.length > 0
+    ? {
+        mainEntity: {
+          '@type': 'ItemList',
+          itemListElement: page.itemUrls.map((url, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            url,
+          })),
+        },
+      }
+    : {}),
 });
 
 export const articleSchema = (article: {
@@ -102,7 +145,7 @@ export const articleSchema = (article: {
   url: string;
 }) => ({
   '@context': 'https://schema.org',
-  '@type': 'NewsArticle',
+  '@type': 'BlogPosting',
   headline: article.title,
   description: article.description,
   image: article.image ? [article.image] : [`${SITE_URL}/images/world-cup-match.webp`],
@@ -123,6 +166,11 @@ export const articleSchema = (article: {
   mainEntityOfPage: {
     '@type': 'WebPage',
     '@id': article.url,
+  },
+  isPartOf: {
+    '@type': 'Blog',
+    name: 'World Cup Travel Blog',
+    url: `${SITE_URL}/blog`,
   },
 });
 
